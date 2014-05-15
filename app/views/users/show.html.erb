@@ -1,0 +1,43 @@
+<h2>My Profile</h2>
+Hi <%= @user.first_name %>.
+
+<%= link_to 'Add a new trip', new_trip_path %>
+	<table class="table">
+  <thead>
+    <tr>
+      <th>Destination</th>
+      <th>Start</th>
+      <th>End</th>
+      <th>Certainty</th>
+      <th>My Tips</th>
+
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @user.trips.each do |trip| %>
+      <tr>
+        <td><%= trip.destination %></td>
+        <td><%= trip.start %></td>
+        <td><%= trip.end %></td>
+        <td><%= trip.certainty %></td>
+        <td><%= trip.tips %></td>
+        <td><%= link_to 'Show', trip %></td>
+        <td><%= link_to 'Edit', edit_trip_path(trip) %></td>
+        <td><%= link_to 'Destroy', trip, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<h2>Your Friends</h2>
+<ul>
+  <% for friendship in @user.friendships %>
+    <li>
+      <%=h friendship.friend.first_name %>
+      (<%= link_to "remove", friendship, :method => :delete %>)
+    </li>
+  <% end %>
+</ul>
+
+<p><%= link_to "Find Friends", users_path %></p>
